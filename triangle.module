@@ -64,13 +64,12 @@ function triangle_form_submit($form, &$form_state) {
     $side_two = $form_state['values']['side_two'];
     $side_three = $form_state['values']['side_three'];
     $triangle = [$side_one, $side_two, $side_three];
-    $sorted = sort($triangle);
+    sort($triangle);
     $triangle_output = "";
 
-    if ($sorted[0] + $sorted[1] < $sorted[2]) {
+    if ($triangle[0] + $triangle[1] < $triangle[2]) {
         $triangle_output .= "This don't add up fool!";
-    }
-    elseif ($side_one == $side_two && $side_two == $side_three) {
+    } elseif ($side_one == $side_two && $side_two == $side_three) {
         $triangle_output .= "Equilateral";
     } elseif (($side_one == $side_two) || ($side_two == $side_three) || ($side_three == $side_one)) {
         $triangle_output .= "Isosceles";
