@@ -66,5 +66,5 @@ function triangle_form_submit($form, &$form_state) {
 }
 
 function triangle_success() {
-    return "Your triangle is $_SESSION['output']";
+    return "Your triangle is " . $_SESSION['output'];
 }
