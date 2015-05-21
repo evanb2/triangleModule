@@ -1,0 +1,5 @@
+name = Triangle Checker
+description = Checks the sides of a triangle and returns the type of triangle.
+package = Epicodus Examples
+core = 7.x
+files[] = triangle.module

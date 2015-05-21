@@ -1,0 +1,70 @@
+<?php
+
+function triangle_menu() {
+    $items = array();
+    $items['triangle'] = array(
+        'title' => 'Triangle Checker',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('triangle_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['triangle_success'] = array(
+        'title' => 'Success',
+        'page callback' => 'triangle_success',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    return $items;
+}
+
+function triangle_form() {
+    $form['side_one'] = array(
+        '#title' => 'Side One',
+        '#type' => 'textfield',
+        '#description' => t('Side One Length'),
+        '#element_validation' => array('element_validate_integer_positive'),
+        '#required' => TRUE,
+    );
+    $form['side_two'] = array(
+        '#title' => 'Side Two',
+        '#type' => 'textfield',
+        '#description' => t('Side Two Length'),
+        '#element_validation' => array('element_validate_integer_positive'),
+        '#required' => TRUE,
+    );
+    $form['side_three'] = array(
+        '#title' => 'Side Three',
+        '#type' => 'textfield',
+        '#description' => t('Side Three Length'),
+        '#element_validation' => array('element_validate_integer_positive'),
+        '#required' => TRUE,
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Check',
+    );
+    return $form;
+}
+
+function triangle_form_submit($form, &$form_state) {
+    $side_one = $form['values']['side_one'];
+    $side_two = $form['values']['side_two'];
+    $side_three = $form['values']['side_three'];
+    $output = array();
+
+    if ($side_one == $side_two && $side_two == $side_three) {
+        array_push($output, "Equilateral");
+    } elseif (($side_one == $side_two) || ($side_two == $side_three) || ($side_three == $side_one)) {
+        array_push($output, "Isosceles");
+    } else {
+        array_push($output, "Scalene");
+    }
+
+    $_SESSION['output'] = $output;
+    $form_state['redirect'] = 'triangle_success';
+}
+
+function triangle_success() {
+    return "Your triangle is $output";
+}
