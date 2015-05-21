@@ -47,13 +47,30 @@ function triangle_form() {
     return $form;
 }
 
+// function validate_side_length($e) {
+//     $side_one = $form_state['values']['side_one'];
+//     $side_two = $form_state['values']['side_two'];
+//     $side_three = $form_state['values']['side_three'];
+//     $triangle = [$side_one, $side_two, $side_three];
+//     $sorted = sort($triangle);
+//
+//     if ($sorted[0] + $sorted[1] < $sorted[2]) {
+//         form_error($e, t('This don\'t add up fool'));
+//     }
+// }
+
 function triangle_form_submit($form, &$form_state) {
     $side_one = $form_state['values']['side_one'];
     $side_two = $form_state['values']['side_two'];
     $side_three = $form_state['values']['side_three'];
+    $triangle = [$side_one, $side_two, $side_three];
+    $sorted = sort($triangle);
     $triangle_output = "";
 
-    if ($side_one == $side_two && $side_two == $side_three) {
+    if ($sorted[0] + $sorted[1] < $sorted[2]) {
+        $triangle_output .= "This don't add up fool!";
+    }
+    elseif ($side_one == $side_two && $side_two == $side_three) {
         $triangle_output .= "Equilateral";
     } elseif (($side_one == $side_two) || ($side_two == $side_three) || ($side_three == $side_one)) {
         $triangle_output .= "Isosceles";
