@@ -48,23 +48,23 @@ function triangle_form() {
 }
 
 function triangle_form_submit($form, &$form_state) {
-    $side_one = $form['values']['side_one'];
-    $side_two = $form['values']['side_two'];
-    $side_three = $form['values']['side_three'];
-    $output = array();
+    $side_one = $form_state['values']['side_one'];
+    $side_two = $form_state['values']['side_two'];
+    $side_three = $form_state['values']['side_three'];
+    $triangle_output = "";
 
     if ($side_one == $side_two && $side_two == $side_three) {
-        array_push($output, "Equilateral");
+        $triangle_output .= "Equilateral";
     } elseif (($side_one == $side_two) || ($side_two == $side_three) || ($side_three == $side_one)) {
-        array_push($output, "Isosceles");
+        $triangle_output .= "Isosceles";
     } else {
-        array_push($output, "Scalene");
+        $triangle_output .= "Scalene";
     }
 
-    $_SESSION['output'] = $output;
+    $_SESSION['output'] = $triangle_output;
     $form_state['redirect'] = 'triangle_success';
 }
 
 function triangle_success() {
-    return "Your triangle is $output";
+    return "Your triangle is $_SESSION['output']";
 }
