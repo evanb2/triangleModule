@@ -66,7 +66,9 @@ function triangle_form_submit($form, &$form_state) {
     }
 
     $_SESSION['output'] = $triangle_output;
-    $form_state['redirect'] = 'triangle_success';
+    if($triangle_output !== "") {
+        $form_state['redirect'] = 'triangle_success';
+    }
 }
 
 function triangle_success() {
